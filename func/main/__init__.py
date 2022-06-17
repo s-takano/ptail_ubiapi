@@ -7,9 +7,9 @@ from ..utilities.exceptions import ApiException
 from ..routers import checkouts
 
 description = """
-This is a Sale and Stock API for Hollywood Cosmetics Co.,Ltd. 
+This is a Sale and Stock API. 
 
-## Products
+## Checkouts
 * Add checkouts
 * Retrieve checkouts
 * Retrieve a specific checkout by ID
@@ -18,7 +18,7 @@ This is a Sale and Stock API for Hollywood Cosmetics Co.,Ltd.
 """
 
 app = FastAPI(
-    title="Sale and Stock API for Hollywood Cosmetics Co.,Ltd.",
+    title="Sale and Stock API.",
     description=description,
     version="0.1",
     contact={
