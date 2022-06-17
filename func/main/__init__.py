@@ -23,12 +23,12 @@ app = FastAPI(
     version="0.1",
     contact={
         "name": "Shinichi Takano",
-        "url": "https://",
+        # "url": "https://",
         "email": "s-takano@cd6.so-net.ne.jp"
     },
     license_info= {
         "name": "MIT License",
-        "url": ""
+        "url": "https://github.com/s-takano/ptail_ubiapi.git/LICENSE"
     }
 )
 
