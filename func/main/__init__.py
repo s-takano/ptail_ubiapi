@@ -1,10 +1,14 @@
 import imp
+import logging
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 import azure.functions as afunc
 
 from ..utilities.exceptions import ApiException
 from ..routers import checkouts
+from opencensus.ext.azure.log_exporter import AzureLogHandler
+import os
+
 
 description = """
 This is a Sale and Stock API. 
@@ -48,4 +52,12 @@ async def generic_api_exception_handler(request: Request, ex:  ApiException):
 
 
 def main(req: afunc.HttpRequest, context: afunc.Context) -> afunc.HttpResponse:
+    get_logger().info(f'HTTP trigger function {req.url}')
     return afunc.AsgiMiddleware(app).handle(req, context)
+
+def get_logger():
+    instrument_key = os.environ["APPINSIGHTS_INSTRUMENTATIONKEY"]
+    logger = logging.getLogger(__name__)
+    logger.setLevel(10)
+    logger.addHandler(AzureLogHandler(connection_string=f'InstrumentationKey={instrument_key}'))
+    return logger
