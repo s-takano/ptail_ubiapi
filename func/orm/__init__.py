@@ -2,71 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Optional, List
 import schemas
 
-
-class DatabaseManagerBase(ABC):
-    """
-    Example implementation of a database manager.
-    In a productive application, SQLAlchemy or another ORM framework could be used here (depending on the database used). 
-    This is a very simplified database manager for demonstration purposes.
-    """
-
-    @abstractmethod
-    def add_checkout(self, checkout: schemas.CheckoutCreate) -> schemas.Checkout:
-        """
-        Adds a checkout to the database
-        Args:
-            checkout (schemas.CheckoutCreate): Checkout to be added
-
-        Returns:
-            schemas.Checkout: Inserted checkout
-        """
-        ...
-
-    @abstractmethod
-    def get_checkouts(self) -> Optional[List[schemas.Checkout]]:
-        """
-        Returns all checkouts from the database
-        Returns:
-            Optional[List[schemas.Checkout]]: List of checkouts
-        """
-        ...
-
-    @abstractmethod
-    def get_checkout(self, id: int) -> Optional[schemas.Checkout]:
-        """
-        Returns a specific checkout by id
-        Args:
-            id (int): Id of the checkout
-
-        Returns:
-            Optional[schemas.Checkout]: Returns the specified checkout
-        """
-        ...
-
-    @abstractmethod
-    def update_checkout(self, checkout_id: int, checkout: schemas.CheckoutPartialUpdate) -> schemas.Checkout:
-        """
-        Updates a checkout
-        Args:
-            checkout_id (int): Checkout ID of the checkout to be updated
-            checkout (schemas.Checkout): Checkout to update
-
-        Returns:
-            schemas.Checkout: Updated checkout
-        """
-        ...
-
-    @abstractmethod
-    def delete_checkout(self, checkout_id: int) -> None:
-        """
-        Deletes a checkout by id
-        Args:
-            id (int): Id of the to be deleted checkout
-        """
-        ...
-
-
-class FakeDataBaseManager(DatabaseManagerBase):
+class CheckoutManager:
 
     def __init__(self) -> None:
         super().__init__()
@@ -126,7 +62,16 @@ class FakeDataBaseManager(DatabaseManagerBase):
             )
         ]
 
-    def add_checkout(self, checkout: schemas.CheckoutCreate) -> schemas.Checkout:
+    def add(self, checkout: schemas.CheckoutCreate) -> schemas.Checkout:
+        """
+        Adds an element to the database
+        Args:
+            checkout (schemas.CheckoutCreate): Checkout to be added
+
+        Returns:
+            schemas.Checkout: Inserted checkout
+        """
+
         # Normally, this step would be handled by the database
         idx = max([p.id for p in self._checkouts]) + 1
 
@@ -135,13 +80,37 @@ class FakeDataBaseManager(DatabaseManagerBase):
 
         return checkout_insert
 
-    def get_checkouts(self) -> Optional[List[schemas.Checkout]]:
+    def get_all(self) -> Optional[List[schemas.Checkout]]:
+        """
+        Returns all checkouts from the database
+        Returns:
+            Optional[List[schemas.Checkout]]: List of checkouts
+        """
+
         return self._checkouts
 
-    def get_checkout(self, id: int) -> Optional[schemas.Checkout]:
+    def get(self, id: int) -> Optional[schemas.Checkout]:
+        """
+        Returns a specific checkout by id
+        Args:
+            id (int): Id of the checkout
+
+        Returns:
+            Optional[schemas.Checkout]: Returns the specified checkout
+        """
         return next(iter([p for p in self._checkouts if p.id == id]), None)
 
     def update_checkout(self, checkout_id: int, checkout: schemas.CheckoutPartialUpdate) -> schemas.Checkout:
+        """
+        Updates a checkout
+        Args:
+            checkout_id (int): Checkout ID of the checkout to be updated
+            checkout (schemas.Checkout): Checkout to update
+
+        Returns:
+            schemas.Checkout: Updated checkout
+        """
+
         for idx, p in enumerate(self._checkouts):
             if p.id == checkout_id:
                 db_checkout = self._checkouts[idx]
@@ -152,6 +121,11 @@ class FakeDataBaseManager(DatabaseManagerBase):
         return None
     
     def delete_checkout(self, checkout_id: int) -> None:
+        """
+        Deletes a checkout by id
+        Args:
+            id (int): Id of the to be deleted checkout
+        """
         for p in self._checkouts:
             if p.id == checkout_id:
                 checkout_del = p

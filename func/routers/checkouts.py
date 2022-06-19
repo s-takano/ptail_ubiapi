@@ -1,8 +1,9 @@
 import logging
 from fastapi import APIRouter, Depends
 from typing import Optional, List
+from func.orm import CheckoutManager
 
-from orm import DatabaseManagerBase
+from orm import CheckoutManager
 from dependencies import get_db
 from utilities.exceptions import EntityNotFoundException, ApiException
 import schemas
@@ -14,12 +15,12 @@ router = APIRouter(
 
 
 @router.post("/", response_model=schemas.Checkout, summary="Creates a checkout")
-async def add_checkout(checkout_create: schemas.CheckoutCreate, db: DatabaseManagerBase = Depends(get_db)):
+async def add_checkout(checkout_create: schemas.CheckoutCreate, db: CheckoutManager = Depends(get_db)):
     """
     Create a checkout:
     """
     logging.debug("Checkout: Add checkout")
-    checkout = db.add_checkout(checkout_create)
+    checkout = db.add(checkout_create)
     return checkout
 
 
@@ -28,9 +29,9 @@ async def add_checkout(checkout_create: schemas.CheckoutCreate, db: DatabaseMana
     response_model=Optional[List[schemas.Checkout]],
     summary="Retrieves all checkouts",
     description="Retrieves all available checkouts from the API")
-async def read_checkouts(db: DatabaseManagerBase = Depends(get_db)):
+async def read_checkouts(db: CheckoutManager = Depends(get_db)):
     logging.debug("Product: Fetch checkouts")
-    checkouts = db.get_checkouts()
+    checkouts = db.get_all()
     return checkouts
 
 
@@ -39,9 +40,9 @@ async def read_checkouts(db: DatabaseManagerBase = Depends(get_db)):
     response_model=Optional[schemas.Checkout],
     summary="Retrieve a checkout by ID",
     description="Retrieves a specific checkout by ID,if no checkout matches the filter criteria a 404 error is returned")
-async def read_product(checkout_id: int, db: DatabaseManagerBase = Depends(get_db)):
+async def read_product(checkout_id: int, db: CheckoutManager = Depends(get_db)):
     logging.debug("Checkout: Fetch checkout by id")
-    checkout = db.get_checkout(checkout_id)
+    checkout = db.get(checkout_id)
     if not checkout:
         raise EntityNotFoundException(code="Unable to retrieve checkout",
                                       description=f"Checkout with the id {checkout_id} does not exist")
@@ -50,7 +51,7 @@ async def read_product(checkout_id: int, db: DatabaseManagerBase = Depends(get_d
 
 @router.patch("/{checkout_id}", response_model=schemas.Checkout, summary="Patches a checkout")
 async def update_checkout(checkout_id: int, checkout_update: schemas.CheckoutPartialUpdate,
-                          db: DatabaseManagerBase = Depends(get_db)):
+                          db: CheckoutManager = Depends(get_db)):
     """ 
     this endpoint allows to update single or multiple values of a checkout
     """
@@ -68,6 +69,6 @@ async def update_checkout(checkout_id: int, checkout_update: schemas.CheckoutPar
 
 
 @router.delete("/{checkout_id}", summary="Deletes a checkout", description="Deletes a checkout permanently by ID")
-async def delete_product(checkout_id: int, db: DatabaseManagerBase = Depends(get_db)):
+async def delete_product(checkout_id: int, db: CheckoutManager = Depends(get_db)):
     logging.debug("Checkout: Delete checkout")
     db.delete_checkout(checkout_id)

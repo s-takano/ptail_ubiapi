@@ -11,7 +11,7 @@ import os
 
 
 description = """
-This is a Sale and Stock API. 
+This is a Ubiregi Extension API. 
 
 ## Checkouts
 * Add checkouts

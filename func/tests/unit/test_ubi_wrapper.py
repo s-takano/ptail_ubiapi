@@ -1,21 +1,21 @@
 from tabnanny import check
 import unittest
 
-from orm import FakeDataBaseManager
+from orm import CheckoutManager
 
 class TestUbiWrapper(unittest.TestCase):
-    def test_get_checkouts(self):
-        db = FakeDataBaseManager()
-        checkouts = db.get_checkouts()
+    def test_get_all(self):
+        db = CheckoutManager()
+        checkouts = db.get_all()
 
         self.assertEqual(len(checkouts), 3)
         
 
-    def test_get_checkout(self):
-        db = FakeDataBaseManager()
-        checkouts = db.get_checkout(1)
+    def test_get(self):
+        db = CheckoutManager()
+        checkouts = db.get(2)
 
-        self.assertEqual(checkouts.id, 1)
+        self.assertEqual(checkouts.id, 2)
 
 
     def test_update_checkout(self):

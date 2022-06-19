@@ -1,16 +1,16 @@
-from orm import FakeDataBaseManager, DatabaseManagerBase
+from orm import CheckoutManager
 
 """
 For a real application a "real" ORM mapper with a real database connection must be defined here or in the get_db method.
 This database connection is for demonstration purposes only.
 """
-db = FakeDataBaseManager()
+db = CheckoutManager()
 
 
-def get_db() -> DatabaseManagerBase:
+def get_db() -> CheckoutManager:
     """
     Get database dependency
     Returns:
-        DatabaseManagerBase: Instance of database manager
+        CheckoutManager: Instance of database manager
     """
     return db
