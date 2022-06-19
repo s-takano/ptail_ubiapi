@@ -3,7 +3,7 @@ import unittest
 
 from orm import CheckoutManager
 
-class TestUbiWrapper(unittest.TestCase):
+class TestCheckoutManager(unittest.TestCase):
     def test_get_all(self):
         db = CheckoutManager()
         checkouts = db.get_all()
