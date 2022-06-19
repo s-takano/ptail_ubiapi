@@ -6,10 +6,10 @@
 	},
 	"item": [
 		{
-			"name": "Products",
+			"name": "Checkouts",
 			"item": [
 				{
-					"name": "GET Products",
+					"name": "GET Checkouts",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -20,12 +20,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{service_url}}/products/",
+							"raw": "{{service_url}}/checkouts/",
 							"host": [
 								"{{service_url}}"
 							],
 							"path": [
-								"products",
+								"checkouts",
 								""
 							]
 						}
@@ -33,7 +33,7 @@
 					"response": []
 				},
 				{
-					"name": "GET Product by ID",
+					"name": "GET Checkout by ID",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -44,12 +44,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{service_url}}/products/1",
+							"raw": "{{service_url}}/checkouts/1",
 							"host": [
 								"{{service_url}}"
 							],
 							"path": [
-								"products",
+								"checkouts",
 								"1"
 							]
 						}
@@ -57,7 +57,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Product",
+					"name": "POST Checkout",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -69,15 +69,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"title\": \"My cool product\",\r\n  \"description\": \"This is the description of my cool product!\",\r\n  \"purch_price\": 50,\r\n  \"sales_price\": 70.5\r\n}"
+							"raw": "{\r\n  \"title\": \"My cool checkout\",\r\n  \"description\": \"This is the description of my cool checkout!\",\r\n  \"purch_price\": 50,\r\n  \"sales_price\": 70.5\r\n}"
 						},
 						"url": {
-							"raw": "{{service_url}}/products/",
+							"raw": "{{service_url}}/checkouts/",
 							"host": [
 								"{{service_url}}"
 							],
 							"path": [
-								"products",
+								"checkouts",
 								""
 							]
 						}
@@ -85,7 +85,7 @@
 					"response": []
 				},
 				{
-					"name": "PUT Product",
+					"name": "PUT Checkout",
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -100,12 +100,12 @@
 							"raw": "{\r\n    \"description\": \"Updated description\"\r\n}"
 						},
 						"url": {
-							"raw": "{{service_url}}/products/3",
+							"raw": "{{service_url}}/checkouts/3",
 							"host": [
 								"{{service_url}}"
 							],
 							"path": [
-								"products",
+								"checkouts",
 								"3"
 							]
 						}
@@ -113,7 +113,7 @@
 					"response": []
 				},
 				{
-					"name": "DELETE Product",
+					"name": "DELETE Checkout",
 					"request": {
 						"method": "GET",
 						"header": []
