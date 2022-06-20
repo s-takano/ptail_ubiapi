@@ -20,6 +20,14 @@ class CalculationOption(BaseModel):
             "tax_calculation_level": {"description": "checkout"}
         }
 
+class CheckoutPayment(BaseModel):
+    ...
+
+class CheckoutItem(BaseModel):
+    ...
+
+class CheckoutTax(BaseModel):
+    ...
 
 class CheckoutBase(BaseModel):
     """
@@ -35,9 +43,9 @@ class CheckoutBase(BaseModel):
     status: str  # "close"
     # cashier_id: Optional[int] # null
     customers_count: int  # 0
-    payments: List[int]  # "[ $Payments]
-    taxes: List[int]  # "[ $CheckoutTaxes]
-    items: List[int]  # " [ $CheckoutItems]
+    payments: List[CheckoutPayment]  # "[ $Payments]
+    taxes: List[CheckoutTax]  # "[ $CheckoutTaxes]
+    items: List[CheckoutItem]  # " [ $CheckoutItems]
     # table_ids : List[int] #" [99, 8]
     customer_tag_ids: List[int]  # [10, 1003]
     # modifier": "0.0",
@@ -86,3 +94,7 @@ class Checkout(CheckoutBase):
         fields = {
             "id": {"description": "Unique ID of the checkout"},
         }
+
+
+class Account(BaseModel):
+    ...

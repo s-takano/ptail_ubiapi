@@ -1,7 +1,7 @@
 import logging
 from fastapi import APIRouter, Depends
 from typing import Optional, List
-from func.orm import CheckoutManagerBase
+from func.ubiapi_manager.checkout import CheckoutManagerBase
 
 from dependencies import get_db
 from utilities.exceptions import EntityNotFoundException, ApiException
