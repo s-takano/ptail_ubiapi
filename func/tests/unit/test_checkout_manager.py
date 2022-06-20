@@ -1,7 +1,7 @@
 from datetime import datetime
 from tabnanny import check
 import unittest
-from ubiapi_manager.checkout import CheckoutManager, SearchCriteria, TestUbiClient
+from ubiapi_manager.checkout import CheckoutManager, SearchCriteria, UbiClientForTest
 import schemas
 from os.path import dirname as d
 from os.path import abspath, join
@@ -9,7 +9,7 @@ import json
 
 class TestCheckoutManager(unittest.TestCase):
     def setUp(self) -> None: 
-        client = TestUbiClient(self.get_resp_checkouts())
+        client = UbiClientForTest(self.get_resp_checkouts())
         self.api_manager = CheckoutManager(client)
 
     def test_search_all(self):

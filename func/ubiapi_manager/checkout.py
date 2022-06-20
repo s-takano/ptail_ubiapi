@@ -114,12 +114,30 @@ class UbiClientBase(ABC):
         ...
 
     @abstractmethod
-    def delete(self, id):
+    def delete(self, id) -> None:
         ...
 
 
 
-class TestUbiClient(UbiClientBase):
+class UbiClient(UbiClientBase):
+    def add(self, resource) -> SimpleReponse:
+        ...
+
+    def search(self, criteria) -> CollectionReponse:
+        ...
+
+    def get(self, id) -> SimpleReponse:
+        ...
+
+    def update(self, id: int, resource) -> None:
+        ...
+
+    def delete(self, id) -> None:
+        ...
+
+
+
+class UbiClientForTest(UbiClientBase):
     def __init__(self, resp_checkouts : dict) -> None:
         self._resp_checkouts = resp_checkouts
 
@@ -147,7 +165,7 @@ class TestUbiClient(UbiClientBase):
                 return updated_checkout
         return None
 
-    def delete(self, id):
+    def delete(self, id) -> None:
         for p in self._resp_checkouts:
             if p.id == id:
                 checkout_del = p
