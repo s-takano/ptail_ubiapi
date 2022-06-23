@@ -1,16 +1,20 @@
-from ubiapi_manager import CheckoutManager, CheckoutManagerBase
+from ubiclient import CheckoutManager, CheckoutManagerBase, UbiClientForTest
+import json
 
 """
-For a real application a "real" ORM mapper with a real database connection must be defined here or in the get_db method.
-This database connection is for demonstration purposes only.
+Api Managers are defined 
 """
-db = CheckoutManager()
+
+with open("C:\\Projects\\Ponytail\\ubiclient\\tests\\unit\\resp_checkouts.json", 'r') as json_file:
+    json_obj = json.load(json_file)
+
+checkout_man = CheckoutManager(UbiClientForTest(json_obj))
 
 
-def get_db() -> CheckoutManagerBase:
+def get_checkout_man() -> CheckoutManagerBase:
     """
-    Get database dependency
+    Get api dependency
     Returns:
         CheckoutManagerBase: Instance of CheckoutManager
     """
-    return db
+    return checkout_man
