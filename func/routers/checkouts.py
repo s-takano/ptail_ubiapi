@@ -29,9 +29,9 @@ async def add_checkout(checkout_create: ubiclient.CheckoutCreate, client: ubicli
     response_model=Optional[List[ubiclient.Checkout]],
     summary="Retrieves all checkouts",
     description="Retrieves all available checkouts from the API")
-async def read_checkouts(apiman: ubiclient.CheckoutManagerBase = Depends(get_checkout_man)):
+async def read_checkouts(client: ubiclient.CheckoutManagerBase = Depends(get_checkout_man)):
     logger.debug("Checkout: Fetch checkouts")
-    checkouts = apiman.search()
+    checkouts = client.search()
     return checkouts
 
 
