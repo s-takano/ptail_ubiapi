@@ -14,3 +14,5 @@ class TestCheckouts(unittest.TestCase):
     def test_bar(self):
         response = self.client.get("/checkouts")
         self.assertEqual(200, response.status_code)
+        checkouts = response.json()
+        self.assertGreater(len(checkouts), 0)
